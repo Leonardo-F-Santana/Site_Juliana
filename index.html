@@ -16,18 +16,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
+    <!-- Global Textures & Atmospherics -->
+    <div id="global-particles"></div>
+    <div id="fog-overlay"></div>
+    <div id="interactive-fog"></div>
 
     <!-- Header / Navigation -->
     <header id="main-header" class="nav-transparent">
         <div class="nav-container">
             <div class="nav-links">
-                <a href="#livros">Loja</a>
+                <a href="loja.html">Loja</a>
                 <a href="#quemsou">Quem sou eu</a>
                 <a href="#inspiracao">Inspiração</a>
                 <a href="#contato">Contato</a>
             </div>
             <div class="nav-auth">
-                <button class="btn btn-login">Login / Cadastro</button>
+                <button class="cart-btn" onclick="openCart()" aria-label="Abrir Carrinho">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </button>
+                <a href="login.html" class="btn btn-login" style="text-decoration: none;">Login / Cadastro</a>
             </div>
         </div>
     </header>
@@ -55,47 +63,68 @@
             </div>
         </section>
 
-        <!-- Spacer for Video Parallax smooth exit -->
-        <div id="hero-spacer" style="height: 50vh;"></div>
+        <!-- Achievement Counter Banner -->
+        <section id="conquistas" class="conquistas-banner section-fade-up">
+            <div class="stats-grid">
+                <div class="stat-item fade-element">
+                    <i class="fa-solid fa-trophy stat-icon"></i>
+                    <h3 class="stat-value">Oscar</h3>
+                    <p class="stat-label">Ficção Cristã</p>
+                </div>
+                <div class="stat-item fade-element">
+                    <i class="fa-solid fa-users stat-icon"></i>
+                    <h3 class="stat-value">+10.000</h3>
+                    <p class="stat-label">Leitores Impactados</p>
+                </div>
+                <div class="stat-item fade-element">
+                    <i class="fa-solid fa-globe stat-icon"></i>
+                    <h3 class="stat-value">3</h3>
+                    <p class="stat-label">Mundos Criados</p>
+                </div>
+            </div>
+        </section>
 
         <!-- Seção de Livros -->
-        <section id="livros" class="livros-section section-fade-up">
+        <section id="livros" class="livros-section">
             <h2 class="section-title">Obras Publicadas</h2>
             <div class="cards-container">
                 <!-- Card 1 -->
-                <div class="book-card modern-card fade-element">
+                <div class="book-card modern-card stagger-card" data-book-id="entre-reinos" onclick="openModal('entre-reinos')">
                     <div class="card-glow"></div>
                     <div class="book-image-wrapper">
+                        <div class="award-badge"><i class="fa-solid fa-award"></i> Obra Premiada</div>
                         <img src="img/CapaEntreReinos.jpeg" alt="Entre Reinos" loading="lazy">
                     </div>
                     <div class="book-info">
                         <h3>Entre Reinos</h3>
                         <p class="book-desc">Magia, fé e uma jornada épica.</p>
-                        <button class="btn btn-primary buy-btn"><i class="fa-solid fa-cart-shopping"></i> Comprar</button>
+                        <p class="impact-phrase">"A coragem nasce onde a esperança parece morrer."</p>
                     </div>
                 </div>
                 <!-- Card 2 -->
-                <div class="book-card modern-card fade-element">
+                <div class="book-card modern-card stagger-card" data-book-id="te-dei-meu-coracao" onclick="openModal('te-dei-meu-coracao')">
                     <div class="card-glow"></div>
                     <div class="book-image-wrapper">
+                        <div class="award-badge"><i class="fa-solid fa-award"></i> Obra Premiada</div>
                         <img src="img/CapaTeDeiMeuCoracao.jpeg" alt="Te Dei Meu Coração" loading="lazy">
                     </div>
                     <div class="book-info">
                         <h3>Te Dei Meu Coração</h3>
                         <p class="book-desc">Romance emocionante com propósitos profundos.</p>
-                        <button class="btn btn-primary buy-btn"><i class="fa-solid fa-cart-shopping"></i> Comprar</button>
+                        <p class="impact-phrase">"O maior milagre é a cura da própria alma."</p>
                     </div>
                 </div>
                 <!-- Card 3 -->
-                <div class="book-card modern-card fade-element">
+                <div class="book-card modern-card stagger-card" data-book-id="o-portal" onclick="openModal('o-portal')">
                     <div class="card-glow"></div>
                     <div class="book-image-wrapper">
+                        <div class="award-badge"><i class="fa-solid fa-award"></i> Obra Premiada</div>
                         <img src="img/CapaOPortal.jpeg" alt="O Portal" loading="lazy">
                     </div>
                     <div class="book-info">
                         <h3>O Portal</h3>
                         <p class="book-desc">Uma entrada para realidades sobrenaturais.</p>
-                        <button class="btn btn-primary buy-btn"><i class="fa-solid fa-cart-shopping"></i> Comprar</button>
+                        <p class="impact-phrase">"Há verdades que só os olhos astrais conseguem ler."</p>
                     </div>
                 </div>
             </div>
@@ -120,9 +149,40 @@
             </div>
         </section>
 
+
+
+        <!-- Testimonials Wall -->
+        <section id="relatos" class="relatos-section section-fade-up">
+            <div class="content-wrapper">
+                <h2 class="section-title">Relatos dos Leitores</h2>
+                <div class="parchment-grid">
+                    <div class="parchment-card fade-element">
+                        <div class="stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Nunca pensei que um livro de fantasia pudesse falar tão profundamente com a minha fé. A construção de mundo é irretocável!"</p>
+                        <h4 class="reader-name">- Mariana G.</h4>
+                    </div>
+                    <div class="parchment-card fade-element">
+                        <div class="stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Devorei em 2 dias. As lágrimas rolaram. Juliana sabe exatamente como tocar onde mais precisamos de cura."</p>
+                        <h4 class="reader-name">- Thiago S.</h4>
+                    </div>
+                    <div class="parchment-card fade-element">
+                        <div class="stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Mágico. Simplesmente mágico. O jeito que as palavras ganham vida na imaginação me fez esquecer da realidade por horas."</p>
+                        <h4 class="reader-name">- Larissa C.</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Inspiração Section -->
         <section id="inspiracao" class="inspiracao-section section-fade-up">
-            <div id="particles-container"></div>
             <div class="content-wrapper">
                 <h2 class="section-title">Inspiração</h2>
                 <div class="quotes-container">
@@ -167,23 +227,79 @@
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer class="main-footer">
+        <div class="footer-divider"></div>
         <div class="footer-content">
             <div class="footer-brand">
                 <h3>Juliana Wanzeller</h3>
                 <p>Histórias que conectam fé, amor e propósito</p>
             </div>
             <div class="social-links">
-                <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="social-icon"><i class="fa-brands fa-amazon"></i></a>
-                <a href="#" class="social-icon"><i class="fa-solid fa-book"></i></a> <!-- Skoob/Goodreads icon substitute -->
+                <a href="https://www.instagram.com/julianawannzeller" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.amazon.com.br/stores/Juliana-Wannzeller/author/B0CR1NKM3S?_encoding=UTF8&pd_rd_w=d4urd&content-id=amzn1.sym.71f58e1d-53e0-42fd-bfa3-3e6495d3f58d&pd_rd_wg=A213s&pd_rd_r=07c9291b-e065-4b6e-b09a-7a4b61a10155&ref=ap_rdr&shoppingPortalEnabled=true" class="social-icon" aria-label="Amazon" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-amazon"></i></a>
+                <a href="#" class="social-icon" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f"></i></a>
             </div>
+        </div>
+        <div class="footer-cta">
+            <p>"Onde a ficção encontra a eternidade."</p>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 Juliana Wanzeller. Todos os direitos reservados.</p>
         </div>
     </footer>
 
+    <!-- Book Glassmorphism Modal -->
+    <div id="book-modal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-modal-btn" onclick="closeModal(null)"><i class="fa-solid fa-times"></i></button>
+            
+            <div class="modal-grid">
+                <!-- Left: Slider -->
+                <div class="modal-slider-container">
+                    <div class="modal-slider" id="modal-slider">
+                        <!-- Images injected by JS -->
+                    </div>
+                    <button class="slider-btn prev-btn" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="slider-btn next-btn" onclick="nextSlide()"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                
+                <!-- Right: Content & Synopsis -->
+                <div class="modal-text-content">
+                    <h2 id="modal-title" class="modal-title">Título do Livro</h2>
+                    <p id="modal-synopsis" class="modal-synopsis">Sinopse do livro...</p>
+                    <div class="modal-action">
+                        <button id="modal-buy-btn" onclick="addModalBookToCart()" class="btn btn-primary buy-btn">
+                            <i class="fa-solid fa-cart-shopping"></i> Comprar Edição Especial
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Drawer & Overlay -->
+    <div id="cart-overlay" class="cart-overlay" onclick="closeCart()"></div>
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-header">
+            <h3>Seu Carrinho</h3>
+            <button class="close-cart-btn" onclick="closeCart()"><i class="fa-solid fa-times"></i></button>
+        </div>
+        <div class="cart-items-container" id="cart-items-container">
+            <!-- Items rendered via JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span>Total:</span>
+                <span id="cart-total-price">R$ 0,00</span>
+            </div>
+            <button class="btn btn-primary checkout-btn" style="width: 100%; justify-content: center;">
+                <i class="fa-solid fa-lock"></i> Finalizar Pedido
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

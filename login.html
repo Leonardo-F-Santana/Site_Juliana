@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Juliana Wanzeller</title>
+    <!-- Fonts: Cinzel & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- GSAP Core & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Global Atmosphere -->
+    <div id="global-particles"></div>
+    <div id="fog-overlay"></div>
+    <div id="interactive-fog"></div>
+
+    <!-- Header / Navigation -->
+    <header id="main-header" class="nav-transparent">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <h2>Juliana Wanzeller</h2>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="loja.html">Loja</a>
+                <a href="index.html#quemsou">Quem sou eu</a>
+                <a href="index.html#inspiracao">Inspiração</a>
+                <a href="index.html#contato">Contato</a>
+            </div>
+            <div class="nav-auth">
+                <button class="cart-btn" onclick="openCart()" aria-label="Abrir Carrinho">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </button>
+                <a href="login.html" class="btn btn-login" style="text-decoration: none;">Login / Cadastro</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Login Section -->
+    <main class="cadastro-page">
+        <div class="form-container cadastro-container" style="opacity: 0;">
+            <div class="cadastro-header text-center" style="margin-bottom: 2rem;">
+                <h2 class="section-title">Acessar Conta</h2>
+                <p class="contato-subtitle">Bem-vindo de volta às histórias que conectam.</p>
+            </div>
+            <form id="login-form" class="modern-form">
+                <div class="input-group">
+                    <input type="email" id="email" required placeholder=" ">
+                    <label for="email">E-mail</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="senha" required placeholder=" ">
+                    <label for="senha">Senha</label>
+                </div>
+                
+                <div style="text-align: right; margin-top: -10px; margin-bottom: 20px;">
+                    <a href="esqueci-senha.html" class="gold-link" style="font-size: 0.9rem;">Esqueci minha senha</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-submit" style="width: 100%; justify-content: center; gap: 10px;">
+                    <span>Entrar</span>
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                </button>
+            </form>
+            <div class="text-center" style="margin-top: 1.5rem; color: var(--text-muted);">
+                <p>Não tem uma conta? <a href="cadastro.html" class="gold-link">Cadastre-se</a></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-divider"></div>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Juliana Wanzeller</h3>
+                <p>Histórias que conectam fé, amor e propósito</p>
+            </div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/julianawannzeller" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.amazon.com.br/stores/Juliana-Wannzeller/author/B0CR1NKM3S" class="social-icon" aria-label="Amazon" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-amazon"></i></a>
+                <a href="#" class="social-icon" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f"></i></a>
+            </div>
+        </div>
+        <div class="footer-cta">
+            <p>"Onde a ficção encontra a eternidade."</p>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Juliana Wanzeller. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Drawer & Overlay -->
+    <div id="cart-overlay" class="cart-overlay" onclick="closeCart()"></div>
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-header">
+            <h3>Seu Carrinho</h3>
+            <button class="close-cart-btn" onclick="closeCart()"><i class="fa-solid fa-times"></i></button>
+        </div>
+        <div class="cart-items-container" id="cart-items-container">
+            <!-- Items rendered via JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span>Total:</span>
+                <span id="cart-total-price">R$ 0,00</span>
+            </div>
+            <button class="btn btn-primary checkout-btn" style="width: 100%; justify-content: center;">
+                <i class="fa-solid fa-lock"></i> Finalizar Pedido
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+        // Specific GSAP Unblur/Fade-up animation for the Login Form
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.fromTo(".cadastro-container", 
+                { y: 50, opacity: 0, filter: "blur(20px)" }, 
+                { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.5, ease: "power3.out", delay: 0.1 }
+            );
+        });
+    </script>
+</body>
+</html>
