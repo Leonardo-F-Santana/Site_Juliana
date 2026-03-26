@@ -38,7 +38,10 @@
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span class="cart-badge" id="cart-badge">0</span>
                 </button>
-                <a href="login.html" class="btn btn-login" style="text-decoration: none;">Login / Cadastro</a>
+                <a href="login.html" class="btn btn-login" style="text-decoration: none;">Login</a>
+                <button class="mobile-menu-btn" aria-label="Abrir menu" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
             </div>
         </div>
     </header>
@@ -115,6 +118,22 @@
             <button class="btn btn-primary checkout-btn" style="width: 100%; justify-content: center;">
                 <i class="fa-solid fa-lock"></i> Finalizar Pedido
             </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu-overlay" class="cart-overlay" onclick="toggleMobileMenu()"></div>
+    <div id="mobile-menu-drawer" class="cart-drawer mobile-drawer">
+        <div class="cart-header">
+            <h3>Menu</h3>
+            <button class="close-cart-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-times"></i></button>
+        </div>
+        <div class="mobile-links-container">
+            <a href="index.html">Início</a>
+            <a href="loja.html">Loja</a>
+            <a href="index.html#quemsou">Quem sou eu</a>
+            <a href="index.html#inspiracao">Inspiração</a>
+            <a href="index.html#contato">Contato</a>
         </div>
     </div>
 

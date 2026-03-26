@@ -543,3 +543,15 @@ function renderCartItems() {
 document.addEventListener('DOMContentLoaded', () => {
     updateCartIcon();
 });
+
+// =========================================
+// 11. Menu Mobile Drawer
+// =========================================
+function toggleMobileMenu() {
+    const drawer = document.getElementById('mobile-menu-drawer');
+    const overlay = document.getElementById('mobile-menu-overlay');
+    if (drawer && overlay) {
+        drawer.classList.toggle('active');
+        overlay.classList.toggle('active');
+    }
+}
