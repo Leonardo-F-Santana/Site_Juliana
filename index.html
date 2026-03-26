@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juliana Wanzeller | Histórias que conectam fé, amor e propósito</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Elegant serif text for headings, clean sans-serif for body -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header id="main-header" class="nav-transparent">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="#livros">Loja</a>
+                <a href="#quemsou">Quem sou eu</a>
+                <a href="#inspiracao">Inspiração</a>
+                <a href="#contato">Contato</a>
+            </div>
+            <div class="nav-auth">
+                <button class="btn btn-login">Login / Cadastro</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section with Fullscreen Video Background -->
+        <section id="hero" class="hero-section">
+            <div class="video-container" id="video-container">
+                <!-- Using a fantasy/magical placeholder video. Replace src with your actual video MP4 URL -->
+                <video id="hero-video" class="hero-video" autoplay muted loop playsinline>
+                    <source src="videos/livros.mp4" type="video/mp4">
+                    Seu navegador não suporta vídeos HTML5.
+                </video>
+                <div class="video-overlay" id="video-overlay"></div>
+            </div>
+            
+            <div class="hero-content" id="hero-content">
+                <h1 class="hero-title">Juliana Wanzeller</h1>
+                <p class="hero-subtitle">Vencedora do Oscar da Ficção Cristã.<br>Mergulhe em histórias de fé, fantasia e amor que tocam a alma.</p>
+            </div>
+            
+            <div class="scroll-indicator">
+                <span>Explore o Universo</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- Spacer for Video Parallax smooth exit -->
+        <div id="hero-spacer" style="height: 50vh;"></div>
+
+        <!-- Seção de Livros -->
+        <section id="livros" class="livros-section section-fade-up">
+            <h2 class="section-title">Obras Publicadas</h2>
+            <div class="cards-container">
+                <!-- Card 1 -->
+                <div class="book-card modern-card fade-element">
+                    <div class="card-glow"></div>
+                    <div class="book-image-wrapper">
+                        <img src="img/CapaEntreReinos.jpeg" alt="Entre Reinos" loading="lazy">
+                    </div>
+                    <div class="book-info">
+                        <h3>Entre Reinos</h3>
+                        <p class="book-desc">Magia, fé e uma jornada épica.</p>
+                        <button class="btn btn-primary buy-btn"><i class="fa-solid fa-cart-shopping"></i> Comprar</button>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="book-card modern-card fade-element">
+                    <div class="card-glow"></div>
+                    <div class="book-image-wrapper">
+                        <img src="img/CapaTeDeiMeuCoracao.jpeg" alt="Te Dei Meu Coração" loading="lazy">
+                    </div>
+                    <div class="book-info">
+                        <h3>Te Dei Meu Coração</h3>
+                        <p class="book-desc">Romance emocionante com propósitos profundos.</p>
+                        <button class="btn btn-primary buy-btn"><i class="fa-solid fa-cart-shopping"></i> Comprar</button>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="book-card modern-card fade-element">
+                    <div class="card-glow"></div>
+                    <div class="book-image-wrapper">
+                        <img src="img/CapaOPortal.jpeg" alt="O Portal" loading="lazy">
+                    </div>
+                    <div class="book-info">
+                        <h3>O Portal</h3>
+                        <p class="book-desc">Uma entrada para realidades sobrenaturais.</p>
+                        <button class="btn btn-primary buy-btn"><i class="fa-solid fa-cart-shopping"></i> Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quem Sou Eu Section -->
+        <section id="quemsou" class="quemsou-section section-fade-up">
+            <div class="content-wrapper">
+                <h2 class="section-title">Quem sou eu</h2>
+                <div class="bio-container fade-element">
+                    <p class="bio-text">
+                        Acredito que as palavras têm o poder de transformar realidades e curar corações. Sou Juliana Wanzeller, uma autora apaixonada por construir universos onde o invisível se torna palpável.
+                    </p>
+                    <p class="bio-text">
+                        Minhas jornadas literárias nascem da união entre a fantasia envolvente e valores cristãos profundos, buscando sempre levar o leitor a uma reflexão sobre amor, fé e propósito através de narrativas imersivas e inesquecíveis.
+                    </p>
+                    <div class="signature">
+                        <span>Com amor,</span>
+                        <span class="sign-name">Juliana Wanzeller</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inspiração Section -->
+        <section id="inspiracao" class="inspiracao-section section-fade-up">
+            <div id="particles-container"></div>
+            <div class="content-wrapper">
+                <h2 class="section-title">Inspiração</h2>
+                <div class="quotes-container">
+                    <div class="quote-box fade-element">
+                        <p>"A verdadeira magia não está em alterar a realidade, mas em ver a luz escondida dentro dela."</p>
+                    </div>
+                    <div class="quote-box fade-element">
+                        <p>"Em cada página virada, um portal se abre para que a fé encontre a imaginação."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contato Section -->
+        <section id="contato" class="contato-section section-fade-up">
+            <div class="content-wrapper">
+                <h2 class="section-title">Entre em contato</h2>
+                <p class="contato-subtitle">Adoraria ouvir sobre sua experiência com os livros ou fechar parcerias literárias.</p>
+                <div class="form-container fade-element">
+                    <form id="contact-form" class="modern-form">
+                        <div class="input-group">
+                            <input type="text" id="name" required placeholder=" ">
+                            <label for="name">Seu Nome</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" id="email" required placeholder=" ">
+                            <label for="email">Seu E-mail</label>
+                        </div>
+                        <div class="input-group">
+                            <textarea id="message" required placeholder=" " rows="5"></textarea>
+                            <label for="message">Sua Mensagem</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <span>Enviar Mensagem</span>
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Juliana Wanzeller</h3>
+                <p>Histórias que conectam fé, amor e propósito</p>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fa-brands fa-amazon"></i></a>
+                <a href="#" class="social-icon"><i class="fa-solid fa-book"></i></a> <!-- Skoob/Goodreads icon substitute -->
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Juliana Wanzeller. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

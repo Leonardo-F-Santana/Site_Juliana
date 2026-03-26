@@ -1,0 +1,15 @@
+preciso de um prompt pro antigravity fazer um site pra uma escritora chamada Juliana Wanzeller, que vai vender seus livros e  contar um pouco de sua historia, anexei um video pra servir de inspiração, vou detalhar o que quero no meu site, no menu a cima, pode colocar os links para: 
+loja
+quem sou eu;
+inspiração;
+contato;
+ao lado no menu quero no canto direito:
+login\cadastro;
+
+
+abaixo do menu, onde está escrito "Maximize your social media presence" voce pode gerar um texto qualquer com o nome da escritora que ganhou alguns prêmios, inclusive óscar da ficção Cristã pra demonstração; na animação onde dá o zoom na imagem que começa com 3 abas (amarelo, rosa e lilás), voce pode transformar as abas amarelas e rosa em livros 3d em fileiras que estão em anexo como "CapaEntreReinos.jpeg" sendo o ultimo, "CapaTeDeiMeuCoracao.jpeg" o do meio e o "CapaOPortal" como livro da frente onde vai aparecer o zoom quando rola a pagina pra baixo assim como no video, no zoom quero que crie uma imagem 3D com a imagem da raposa em anexo andando pela capa do livro, coloquei duas imagens dessa raposa pra voce escolher qual fica lehor, estão com o nome 'RaposaOPortal.jpeg' e 'RaposaOPortal1.jpeg';
+
+quando acabar esse zoom do livro, quero que continue o efeito de rolagem onde a pagina vai aparecendo aos poucos,em seguida crie uma vitrine de vendas com os 3 livros que estão em anexo "CapaEntreReinos.jpeg", "CapaTeDeiMeuCoracao.jpeg" e "CapaTeDeiMeuCoracao.jpeg";
+continue com o efeito de rolagem surgindo o resto da pagina aos poucos, ai voce pode incrementar algo inspirado no video que te forneci em anexo!
+
+quero a palheta de cores inspirada na imagem anexada com nome "palhetadecores.jpg"
