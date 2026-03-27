@@ -1329,6 +1329,110 @@ section:not(.hero-section) {
     margin-top: 2rem;
 }
 
+/* Spinner UI (Checkout API) */
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #111;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Cart Extras, Subtotals & Checkout Updates */
+.cart-extras {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+}
+.extras-container {
+    display: flex;
+    gap: 10px;
+}
+.extras-container input {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 4px;
+    padding: 8px 12px;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+}
+.btn-small {
+    background: transparent;
+    border: 1px solid var(--gold-primary);
+    color: var(--gold-light);
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+.btn-small:hover {
+    background: var(--gold-primary);
+    color: #111;
+}
+
+.cart-summary-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 1rem;
+    border-bottom: 1px dashed rgba(255,255,255,0.2);
+    padding-bottom: 1rem;
+}
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+.discount-line span:last-child {
+    color: #4cd137;
+    font-weight: 500;
+}
+
+.security-badges {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+.security-badges i {
+    color: #4cd137;
+    font-size: 1rem;
+}
+
+.stock-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(46, 204, 113, 0.15);
+    border: 1px solid #2ecc71;
+    color: #4cd137;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 5;
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
 @media (max-width: 480px) {
     .cart-drawer {
         width: 100vw;

@@ -499,22 +499,66 @@ function updateQuantity(id, mod) {
     }
 }
 
+let cartExtras = JSON.parse(localStorage.getItem('ju_cart_extras')) || { shipping: 0, discountPercentage: 0 };
+
+function saveCartExtras() {
+    localStorage.setItem('ju_cart_extras', JSON.stringify(cartExtras));
+    renderCartItems();
+}
+
+function calculateShipping() {
+    const cepInput = document.getElementById('cep-input');
+    if(!cepInput) return;
+    const cep = cepInput.value.replace(/\D/g, '');
+    if(cep.length < 8) {
+        alert("Digite um CEP válido com 8 números.");
+        return;
+    }
+    
+    // Mock Shipping Logic (Sul/Sudeste = 15, Outros = 25)
+    cartExtras.shipping = /^[0-3]/.test(cep) ? 15.00 : 25.00;
+    saveCartExtras();
+}
+
+function applyCoupon() {
+    const couponInput = document.getElementById('coupon-input');
+    if(!couponInput) return;
+    const code = couponInput.value.toUpperCase().trim();
+    
+    if(code === 'MAGIA10') {
+        cartExtras.discountPercentage = 0.10;
+        alert("Cupom aplicado: 10% de Desconto!");
+    } else {
+        cartExtras.discountPercentage = 0;
+        alert("Cupom inválido ou expirado.");
+    }
+    saveCartExtras();
+}
+
 function renderCartItems() {
     const container = document.getElementById('cart-items-container');
     const totalEl = document.getElementById('cart-total-price');
     if (!container || !totalEl) return;
 
     container.innerHTML = '';
-    let totalPrice = 0;
+    let subtotal = 0;
 
     if (cart.length === 0) {
         container.innerHTML = '<p class="empty-cart-msg">Seu carrinho está vazio.</p>';
         totalEl.innerText = 'R$ 0,00';
+        
+        const subtotalEl = document.getElementById('cart-subtotal');
+        if (subtotalEl) {
+            subtotalEl.innerText = 'R$ 0,00';
+            document.getElementById('cart-shipping-cost').innerText = 'R$ 0,00';
+            document.getElementById('cart-discount-value').innerText = '-R$ 0,00';
+            document.getElementById('discount-row').style.display = 'none';
+        }
         return;
     }
 
     cart.forEach(item => {
-        totalPrice += item.price * item.quantity;
+        subtotal += item.price * item.quantity;
         
         const itemEl = document.createElement('div');
         itemEl.className = 'cart-item';
@@ -536,7 +580,26 @@ function renderCartItems() {
         container.appendChild(itemEl);
     });
 
-    totalEl.innerText = `R$ ${totalPrice.toFixed(2).replace('.', ',')}`;
+    const isShippingCalculated = cartExtras.shipping > 0;
+    const shippingCost = isShippingCalculated ? cartExtras.shipping : 0;
+    const discountAmount = subtotal * cartExtras.discountPercentage;
+    const finalTotal = subtotal + shippingCost - discountAmount;
+
+    const subtotalEl = document.getElementById('cart-subtotal');
+    if (subtotalEl) {
+        subtotalEl.innerText = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+        document.getElementById('cart-shipping-cost').innerText = isShippingCalculated ? `R$ ${shippingCost.toFixed(2).replace('.', ',')}` : 'À Calcular';
+        
+        const discountRow = document.getElementById('discount-row');
+        if (cartExtras.discountPercentage > 0) {
+            document.getElementById('cart-discount-value').innerText = `-R$ ${discountAmount.toFixed(2).replace('.', ',')}`;
+            discountRow.style.display = 'flex';
+        } else {
+            discountRow.style.display = 'none';
+        }
+    }
+
+    totalEl.innerText = `R$ ${Math.max(0, finalTotal).toFixed(2).replace('.', ',')}`;
 }
 
 // Initial hydration securely on page load
@@ -553,5 +616,71 @@ function toggleMobileMenu() {
     if (drawer && overlay) {
         drawer.classList.toggle('active');
         overlay.classList.toggle('active');
+    }
+}
+
+// =========================================
+// 12. Checkout Integrations (InfinitePay)
+// =========================================
+const INFINITEPAY_API_URL = 'https://api.infinitepay.io/v2/payment-links';
+const INFINITEPAY_API_KEY = 'SUA_CHAVE_API_SANDBOX_AQUI'; // Sandbox Mode
+
+async function initiateCheckout() {
+    if (cart.length === 0) {
+        alert("Seu carrinho está vazio!");
+        return;
+    }
+
+    const checkoutBtns = document.querySelectorAll('.checkout-btn');
+    if(checkoutBtns.length === 0) return;
+    const originalText = checkoutBtns[0].innerHTML;
+
+    // Golden Spinner visual feedback indicating API communication
+    checkoutBtns.forEach(btn => {
+        btn.innerHTML = '<div class="spinner"></div> Criando Link...';
+        btn.disabled = true;
+    });
+
+    try {
+        let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        let shippingCost = cartExtras.shipping || 0;
+        let discountAmount = subtotal * (cartExtras.discountPercentage || 0);
+        const totalAmount = Math.round(Math.max(0, subtotal + shippingCost - discountAmount) * 100);
+
+        const payload = {
+            payment_link: {
+                amount: totalAmount,
+                expires_in: 60,
+                installments: 12,
+                payment_methods: ["pix", "credit_card"],
+                postback_url: window.location.origin + "/webhook/infinitepay",
+                return_url: window.location.origin + "/sucesso.html",
+                reference_id: "PEDIDO-" + Math.floor(Math.random() * 1000000)
+            }
+        };
+
+        console.log("Integrando com InfinitePay (Sandbox):", payload);
+        
+        // Save the summary for the success page
+        localStorage.setItem('ju_last_order', JSON.stringify({
+            subtotal,
+            shippingCost,
+            discountAmount,
+            totalAmount: Math.max(0, subtotal + shippingCost - discountAmount)
+        }));
+
+        // Simulação de chamada de rede
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Simulação de redirecionamento para gateway/sucesso
+        window.location.href = "sucesso.html";
+
+    } catch (error) {
+        console.error("Erro no Checkout InfinitePay:", error);
+        alert("Ocorreu um erro ao conectar com o provedor de pagamento. Tente novamente.");
+        checkoutBtns.forEach(btn => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        });
     }
 }

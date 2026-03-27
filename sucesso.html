@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido Confirmado - Juliana Wanzeller</title>
+    <!-- Fonts: Cinzel & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- GSAP Core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Global Atmosphere -->
+    <div id="global-particles"></div>
+    <div id="fog-overlay"></div>
+    <div id="interactive-fog"></div>
+
+    <!-- Header / Navigation -->
+    <header id="main-header" class="nav-transparent">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <h2>Juliana Wanzeller</h2>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Início</a>
+                <a href="loja.html">Loja</a>
+                <a href="index.html#quemsou">Quem sou eu</a>
+                <a href="index.html#contato">Contato</a>
+            </div>
+            <div class="nav-auth">
+                <button class="cart-btn" onclick="openCart()" aria-label="Abrir Carrinho">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </button>
+                <a href="login.html" class="btn btn-login" style="text-decoration: none;">Login</a>
+                <button class="mobile-menu-btn" aria-label="Abrir menu" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Success Main Section -->
+    <main class="cadastro-page">
+        <div class="auth-card success-card" style="text-align: center; max-width: 600px; width: 100%;">
+            <div class="card-glow"></div>
+            <i class="fa-solid fa-circle-check" style="font-size: 4rem; color: var(--gold-primary); margin-bottom: 1.5rem;"></i>
+            <h2 class="section-title" style="font-size: 2.5rem; margin-bottom: 1.5rem;">Pedido Confirmado</h2>
+            <p class="contato-subtitle" style="margin-bottom: 1.5rem;">O pagamento foi aprovado com sucesso via InfinitePay. As instruções de acesso e detalhes do acompanhamento foram enviados para seu e-mail.</p>
+            
+            <!-- Resumo do Pedido -->
+            <div id="order-summary-block" style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--glass-border); margin-bottom: 2rem; display: none;">
+                <h4 style="color: var(--gold-light); margin-bottom: 1rem; font-family: var(--font-heading); text-transform: uppercase;">Resumo do Pedido</h4>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem;">
+                    <span style="color: var(--text-muted);">Subtotal:</span>
+                    <span id="summary-subtotal" style="color: var(--text-main);">R$ 0,00</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem;">
+                    <span style="color: var(--text-muted);">Frete:</span>
+                    <span id="summary-shipping" style="color: var(--text-main);">R$ 0,00</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.95rem;">
+                    <span style="color: var(--text-muted);">Desconto:</span>
+                    <span id="summary-discount" style="color: #4cd137;">- R$ 0,00</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; font-family: var(--font-heading); font-size: 1.2rem;">
+                    <span style="color: #fff;">Total Pago:</span>
+                    <span id="summary-total" style="color: var(--gold-primary);">R$ 0,00</span>
+                </div>
+            </div>
+
+            <p style="color: var(--gold-light); font-family: var(--font-heading); margin-bottom: 3rem; font-size: 1.2rem;">O seu universo mágico o aguarda.</p>
+            <a href="loja.html" class="btn btn-primary" style="text-decoration: none; display: inline-flex; width: 100%; justify-content: center;">Voltar para a Galeria</a>
+        </div>
+    </main>
+
+    <!-- Cart Drawer & Overlay -->
+    <div id="cart-overlay" class="cart-overlay" onclick="closeCart()"></div>
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-header">
+            <h3>Seu Carrinho</h3>
+            <button class="close-cart-btn" onclick="closeCart()"><i class="fa-solid fa-times"></i></button>
+        </div>
+        <div class="cart-items-container" id="cart-items-container">
+            <!-- Items rendered via JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span>Total:</span>
+                <span id="cart-total-price">R$ 0,00</span>
+            </div>
+            <button class="btn btn-primary checkout-btn" style="width: 100%; justify-content: center;" onclick="initiateCheckout()">
+                <i class="fa-solid fa-lock"></i> Finalizar Pedido
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu-overlay" class="cart-overlay" onclick="toggleMobileMenu()"></div>
+    <div id="mobile-menu-drawer" class="cart-drawer mobile-drawer">
+        <div class="cart-header">
+            <h3>Menu</h3>
+            <button class="close-cart-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-times"></i></button>
+        </div>
+        <div class="mobile-links-container">
+            <a href="index.html">Início</a>
+            <a href="loja.html">Loja</a>
+            <a href="index.html#quemsou">Quem sou eu</a>
+            <a href="index.html#inspiracao">Inspiração</a>
+            <a href="index.html#contato">Contato</a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.fromTo(".success-card", 
+                { y: 50, opacity: 0, filter: "blur(10px)" }, 
+                { y: 0, opacity: 1, filter: "blur(0px)", duration: 1, ease: "power2.out", delay: 0.2 }
+            );
+
+            // Fetch Last Order Details for Summary
+            try {
+                const orderRaw = localStorage.getItem('ju_last_order');
+                if (orderRaw) {
+                    const order = JSON.parse(orderRaw);
+                    document.getElementById('summary-subtotal').innerText = `R$ ${order.subtotal.toFixed(2).replace('.', ',')}`;
+                    document.getElementById('summary-shipping').innerText = `R$ ${order.shippingCost.toFixed(2).replace('.', ',')}`;
+                    document.getElementById('summary-discount').innerText = `- R$ ${order.discountAmount.toFixed(2).replace('.', ',')}`;
+                    document.getElementById('summary-total').innerText = `R$ ${order.totalAmount.toFixed(2).replace('.', ',')}`;
+                    document.getElementById('order-summary-block').style.display = 'block';
+                }
+            } catch (e) {
+                console.error("Order details empty or malformed.");
+            }
+
+            // CÓDIGO CRÍTICO DE NEGÓCIO: ZERAR O CARRINHO PÓS-PAGAMENTO BEM SUCEDIDO
+            if(window.cart && window.cart.length > 0) {
+                window.cart = [];
+                if(typeof saveCart === 'function') {
+                    saveCart();
+                } else {
+                    localStorage.removeItem('ju_cart');
+                }
+                localStorage.removeItem('ju_cart_extras');
+                console.log("Carrinho e configurações limpos após pagamento confirmado via InfinitePay.");
+            }
+        });
+    </script>
+</body>
+</html>
